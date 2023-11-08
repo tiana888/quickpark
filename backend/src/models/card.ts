@@ -24,7 +24,7 @@ const CardSchema = new mongoose.Schema<CardDocument>(
     },
     list_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Bist",
+      ref: "List",
       required: true,
     },
   },
@@ -41,5 +41,5 @@ const CardSchema = new mongoose.Schema<CardDocument>(
   },
 );
 
-const Card = mongoose.model<CardDocument, CardModel>("Bard", CardSchema);
+const Card = mongoose.model<CardDocument, CardModel>("Card", CardSchema);
 export default Card;

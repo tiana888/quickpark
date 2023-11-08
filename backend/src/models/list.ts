@@ -21,7 +21,7 @@ const ListSchema = new mongoose.Schema<ListDocument>(
     cards: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Bard",
+        ref: "Card",
       },
     ],
   },
@@ -30,5 +30,5 @@ const ListSchema = new mongoose.Schema<ListDocument>(
   },
 );
 
-const List = mongoose.model<ListDocument, ListModel>("Bist", ListSchema);
+const List = mongoose.model<ListDocument, ListModel>("List", ListSchema);
 export default List;
