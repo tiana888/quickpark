@@ -1,26 +1,22 @@
-import MenuIcon from "@mui/icons-material/Menu";
-import AppBar from "@mui/material/AppBar";
+import ArrowBackIosSharpIcon from '@mui/icons-material/ArrowBackIosSharp';
 import IconButton from "@mui/material/IconButton";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
+import { useNavigate } from 'react-router-dom';
+
 
 export default function HeaderBar() {
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
   return (
-    <AppBar position="static">
-      <Toolbar>
+    <>
         <IconButton
+          onClick={goBack}
           size="large"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 }}
+          sx={{ ml: 1 }}
         >
-          <MenuIcon />
+          <ArrowBackIosSharpIcon sx={{ color:"white" }} fontSize="large"/>
         </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Trello Clone
-        </Typography>
-      </Toolbar>
-    </AppBar>
+    </>
   );
 }
