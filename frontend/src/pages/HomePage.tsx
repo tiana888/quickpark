@@ -35,16 +35,15 @@ export default function HomePage() {
 
   return (
     <main className="container max-h-screen max-w-screen">
-      <button onClick={handleOpen}>
+      <button className="absolute right-0 top-0 h-20 w-20 lg:right-10 lg:top-10 lg:h-28 lg:w-28" onClick={handleOpen}>
         <img
-          className="absolute right-0 top-0 h-20 w-20 lg:right-10 lg:top-10 lg:h-28 lg:w-28"
           src="./home_guard.png"
           alt="guard"
         />
       </button>
 
       <Link to="/clientpage">
-        <div className="flex h-screen flex-col items-center justify-center">
+        <div className="flex h-screen w-screen flex-col items-center justify-center">
           {/* 在 lg 尺寸下顯示的元素 */}
           <div className="hidden lg:block lg:flex lg:flex-row lg:mt-10 lg:-mb-20 lg:items-center">
             <div className="mr-20">
