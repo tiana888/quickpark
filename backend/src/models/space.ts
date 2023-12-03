@@ -24,15 +24,15 @@ const SpaceSchema = new mongoose.Schema<SpaceDocument>(
     },
     license:{
 			type: String,
-			required: true,
+      default: "",
     },
     arrivalTime:{
 			type: Date,
-			required: true,
+      default:"",
     },
     departureTime:{
 			type: Date,
-			required: false,
+      default:"",
     },
     history:[{
 			license: {

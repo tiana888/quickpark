@@ -22,8 +22,8 @@ export type SpaceData = {
   number: number;
   priority: boolean;
   occupied: boolean;
-  license: string;
-  arrivalTime: Date;
+  license?: string;
+  arrivalTime?: Date;
   departureTime?: Date; 
   history: {
     license: string;
