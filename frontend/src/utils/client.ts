@@ -5,6 +5,8 @@ import type {
   CreateSpaceResponse,
   UpdateSpacePayload,
   UpdateSpaceResponse,
+  checkAuthResponse,
+  checkAuthPayload
 } from "@lib/shared_types";
 
 import axios from "axios";
@@ -29,4 +31,12 @@ export function updateSpace(id: string, input: UpdateSpacePayload) {
 
 export function createSpace(input: CreateSpacePayload) {
   return client.post<CreateSpaceResponse>("/spaces", input);
+}
+
+export function checkAuth(input: checkAuthPayload){
+  return client.post<checkAuthResponse>(`/users`, input)
+}
+
+export function createAccount(input: checkAuthPayload){
+  return client.post<checkAuthPayload>(`/users/create`, input)
 }

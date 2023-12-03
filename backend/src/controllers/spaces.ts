@@ -1,4 +1,4 @@
-import SpaceModel from "../models/spaces";
+import SpaceModel from "../models/space";
 import { genericErrorHandler } from "../utils/errors";
 import type {
   GetSpacesResponse,

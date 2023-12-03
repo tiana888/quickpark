@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import SpaceRoutes from "./routes/spaces";
 import CardRoutes from "./routes/cards";
 import ListRoutes from "./routes/lists";
-
+import UserRoutes from "./routes/users"
 // We use a custom env.ts file to make sure that all the environment variables are in correct types.
 import { env } from "./utils/env";
 
@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Routes
+app.use("/api/users",UserRoutes)
 app.use("/api/spaces", SpaceRoutes);
 app.use("/api/cards",CardRoutes);
 app.use("/api/lists",ListRoutes);
