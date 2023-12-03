@@ -9,6 +9,14 @@
 // A general rule of thumb is to always use `type` unless you have a good reason
 // to use `interface`. `interface` is more powerful, at the cost of baring more
 // footguns.
+
+export type UserData = {
+  id:string;
+  displayId: string;
+  username: string;
+  hashed_password: string; 
+}
+
 export type SpaceData = {
   id: string;
   number: number;
@@ -79,4 +87,12 @@ export type CreateSpaceResponse = Pick<SpaceData, "id">;
 export type UpdateSpacePayload = Partial<Omit<SpaceData, "id">>;
 
 export type UpdateSpaceResponse = "OK";
-
+//-----------------------------------------------------------
+export type checkAuthPayload = {
+  username: string;
+  password: string;
+};
+export type checkAuthResponse = {
+  success: boolean;
+};
+//---------------------------------------------------------
