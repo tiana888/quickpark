@@ -10,6 +10,10 @@ interface SpaceModel extends mongoose.Model<SpaceDocument> {}
 // We enforce the type by adding `<CardDocument>` after `mongoose.Schema`.
 const SpaceSchema = new mongoose.Schema<SpaceDocument>(
   {
+    section:{
+      type: String,
+      required: true,
+    },
     number:{
 			type: Number,
 			required: true,

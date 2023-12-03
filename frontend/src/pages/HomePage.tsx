@@ -9,17 +9,21 @@ import { createSpace } from "@/utils/client";
 export default function HomePage() {
   const navigate = useNavigate();
   const [DialogOpen, setDialogOpen] = useState(false);
-  
+
   const Init_Spaces = async() => {
-    for( let i=1; i<=600; i++ ){
-      await createSpace({
-        number: i, 
-        priority: false, 
-        occupied: false,
-        history: []
-      })
-      console.log(i);
+    const abc = ["A","B","C","D","E","F"];
+    for( let j=0; j<6; j++){
+      for( let i=1; i<=20; i++ ){
+        await createSpace({
+          section: abc[j],
+          number: i, 
+          priority: false, 
+          occupied: false,
+          history: []
+        })
+      console.log(abc[j],i);
     }
+  }
   }
 
   const handleOpen = () => {
@@ -98,7 +102,6 @@ export default function HomePage() {
       <button onClick={Init_Spaces} className="border-2 border-white">
         初始化停車位
       </button>
-      
     </main>
   );
 }

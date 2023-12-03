@@ -19,6 +19,7 @@ export const getSpaces = async (_: Request, res: Response<GetSpacesResponse>) =>
     const spacesToReturn = spaces.map((space) => {
       return {
         id: space.id,
+        section: space.section,
         number: space.number,
         priority: space.priority,
 				occupied: space.occupied,
@@ -49,13 +50,14 @@ export const getSpace = async (
 
     return res.status(200).json({
       id: space.id,
-        number: space.number,
-        priority: space.priority,
-				occupied: space.occupied,
-				license: space.license,
-				arrivalTime: space.arrivalTime,
-				departureTime: space.departureTime,
-				history: space.history,
+      section:space.section,
+      number: space.number,
+      priority: space.priority,
+      occupied: space.occupied,
+      license: space.license,
+      arrivalTime: space.arrivalTime,
+      departureTime: space.departureTime,
+      history: space.history,
     });
   } catch (error) {
     genericErrorHandler(error, res);
