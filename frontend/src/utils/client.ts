@@ -20,13 +20,15 @@ const client = axios.create({
 export function getSpaces() {
   return client.get<GetSpacesResponse>("/spaces");
 }
-
-export function getSpace(id: string ) {
-  return client.get<GetSpaceResponse>(`/spaces/${id}`);
+export function getSection(floor: string, section: string) {
+  return client.get<GetSpaceResponse>(`/spaces//${floor}/${section}`);
+}
+export function getSpace(floor: string, section: string, number: string) {
+  return client.get<GetSpaceResponse>(`/spaces/${floor}/${section}/${number}`);
 }
 
-export function updateSpace(id: string, input: UpdateSpacePayload) {
-  return client.put<UpdateSpaceResponse>(`/spaces/${id}`, input);
+export function updateSpace(floor: string, section: string, number: string, input: UpdateSpacePayload) {
+  return client.put<UpdateSpaceResponse>(`/spaces/${floor}/${section}/${number}`, input);
 }
 
 export function createSpace(input: CreateSpacePayload) {

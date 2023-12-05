@@ -1,5 +1,6 @@
 import {
     getSpaces,
+    getSection,
     getSpace,
     createSpace,
     updateSpace,
@@ -10,12 +11,15 @@ import {
   
   // GET /api/spaces
   router.get("/", getSpaces);
-  // GET /api/sapces/:id
-  router.get("/:id", getSpace);
+  // GET /api/sapces/:section
+  router.get("/:floor/:section", getSection);
+  // GET /api/sapces/:floor/:section/:number
+  router.get("/:floor/:section/:number", getSpace);
+
   // POST /api/spaces
   router.post("/", createSpace);
   // PUT /api/spaces/:id
-  router.put("/:id", updateSpace);
+  router.put("/:floor/:section/:number", updateSpace);
   
   // export the router
   export default router;

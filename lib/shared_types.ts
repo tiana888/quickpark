@@ -19,6 +19,7 @@ export type UserData = {
 
 export type SpaceData = {
   id: string;
+  floor: string;
   section: string;
   number: number;
   priority: boolean;
