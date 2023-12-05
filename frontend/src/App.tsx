@@ -5,6 +5,7 @@ import GuardPage from "./pages/GuardPage";
 import HistoryPage from "./pages/HistoryPage";
 import HomePage from "./pages/HomePage";
 import SpaceZoomPage from "./pages/SpaceZoomPage";
+import TestPage from "./pages/TestPage";
 
 // import HeaderBar from "./components/HeaderBar";
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/clientpage/spacezoompage" element={<SpaceZoomPage />} />
         <Route path="/guardpage" element={<GuardPage />} />
         <Route path="/guardpage/historypage" element={<HistoryPage />} />
+        <Route path="/testpage" element={<TestPage />} />
       </Routes>
     </>
   );

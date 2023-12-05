@@ -23,11 +23,11 @@ export function getSpaces() {
 export function getSection(floor: string, section: string) {
   return client.get<GetSpaceResponse>(`/spaces//${floor}/${section}`);
 }
-export function getSpace(floor: string, section: string, number: string) {
+export function getSpace(floor: string, section: string, number: number) {
   return client.get<GetSpaceResponse>(`/spaces/${floor}/${section}/${number}`);
 }
 
-export function updateSpace(floor: string, section: string, number: string, input: UpdateSpacePayload) {
+export function updateSpace(floor: string, section: string, number: number, input: UpdateSpacePayload) {
   return client.put<UpdateSpaceResponse>(`/spaces/${floor}/${section}/${number}`, input);
 }
 
