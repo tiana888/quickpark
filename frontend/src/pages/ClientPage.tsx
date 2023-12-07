@@ -3,7 +3,6 @@ import HeaderBar from "@/components/HeaderBar";
 import NewInput from "@/components/NewInput";
 
 export default function ClientPage() {
-  // 创建一个数组，包含六个数字（可以是任意数字，这里用索引 i 作为 key）
   const gridItems = Array.from({ length: 6 }, (_, i) => i);
 
   // 可改成其他顏色變換，此為暫時
