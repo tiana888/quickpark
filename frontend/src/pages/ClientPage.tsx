@@ -3,7 +3,10 @@ import HeaderBar from "@/components/HeaderBar";
 import NewInput from "@/components/NewInput";
 
 export default function ClientPage() {
+<<<<<<< HEAD
   // 创建一个数组，包含六个数字（可以是任意数字，这里用索引 i 作为 key）
+=======
+>>>>>>> f9af4830d0754f27bc213ff0bddad58cc80c0991
   const gridItems = Array.from({ length: 6 }, (_, i) => i);
 
   // 可改成其他顏色變換，此為暫時
@@ -14,10 +17,20 @@ export default function ClientPage() {
     return index % 2 === 0 ? '#E8D782' : '#8CDCB6';
   };
 
+<<<<<<< HEAD
+=======
+  const handleViewClick = () => {
+    // Handle click on the view area
+    // You can add logic to show more information or navigate to another page
+    console.log('View area clicked!');
+  };
+
+>>>>>>> f9af4830d0754f27bc213ff0bddad58cc80c0991
   return (
     <>
       <HeaderBar />
       <div>ClientPage</div>
+<<<<<<< HEAD
       <div className="mx-auto border rounded-lg w-2/3">
         <NewInput
           placeholder="請輸入密碼"
@@ -27,6 +40,19 @@ export default function ClientPage() {
                   alt="color"
                   style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '25%', height: '25%' }}
                 />
+=======
+      <div className="mx-auto border rounded-lg w-2/3" onClick={handleViewClick} style={{ position: 'relative', cursor: 'pointer' }}>
+        <NewInput
+          placeholder="請輸入密碼"
+        />
+        <img
+          src="/ColorBar.png"
+          alt="color"
+          style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '25%', height: '25%' }}
+        />
+        {/* Clickable area for viewing */}
+        <div style={{ position: 'absolute', top: '50%', left: '0', transform: 'translate(0, -50%)', width: '25%', height: '25%' }}></div>
+>>>>>>> f9af4830d0754f27bc213ff0bddad58cc80c0991
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0px', marginTop: '100px' }}>
@@ -94,3 +120,5 @@ export default function ClientPage() {
     </>
   );
 }
+
+
