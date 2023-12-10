@@ -1,9 +1,8 @@
 import HeaderBar from "@/components/HeaderBar";
-import { Button, Input } from "@mui/material"
-import { getSpaces, createSpace,getSection } from "@/utils/client";
+import { getSection } from "@/utils/client";
 import Square from "@/components/Square";
 import { useParams } from 'react-router-dom';
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { GetSpacesResponse } from "@lib/shared_types";
 
 export default function SpaceZoomPage() {
@@ -11,29 +10,20 @@ export default function SpaceZoomPage() {
   const [spaces, setSpaces] = useState<GetSpacesResponse>([])
   const remainingSpaces = spaces.filter(space => space.number <= 20 && !space.occupied);
   const { floor, section } = useParams();
-
-  const fetchSpace = async() => {
+  const fetchSpace = useCallback(async() => {
     try{
-    if(!floor || !section) return;
-    const response = await getSection(floor, section);
-    const spacesData = response.data;
-    setSpaces(spacesData);
+      if(!floor || !section) return;
+      const response = await getSection(floor, section);
+      const spacesData = response.data;
+      setSpaces(spacesData);
     }finally{
       console.log(spaces);
     }
-  }
+  },[])
 
   useEffect(()=>{
     fetchSpace();
   });
-  // })
-  // useEffect(()=>{
-  //   fetchSpace();
-  // });
-  // useEffect(() => {
-  //   if(!floor || !section) return;
-  //   spaces = getSection(floor ,section);
-  // });
 
   return (
     <>
@@ -50,13 +40,17 @@ export default function SpaceZoomPage() {
       <div style={{ flex: 1,display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
         {spaces.map((space) => (
         space.number <= 10 && (
-          <Square 
+          <Square
             key= {space.number}
             floor= {space.floor}
             section= {space.section}
             number= {space.number}
             priority= {space.priority}  
             occupied= {space.occupied}
+            license= {space.license}
+            arrivalTime= {space.arrivalTime}
+            departureTime={space.departureTime}
+            history={space.history}
           />
         )
     ))}
@@ -67,12 +61,16 @@ export default function SpaceZoomPage() {
     {spaces.map((space) => (
       space.number > 10 && space.number <= 20 && (
         <Square
-        key= {space.number}
-        floor= {space.floor}
-        section= {space.section}
-        number= {space.number}
-        priority= {space.priority}  
-        occupied= {space.occupied}
+          key= {space.number}
+          floor= {space.floor}
+          section= {space.section}
+          number= {space.number}
+          priority= {space.priority}  
+          occupied= {space.occupied}
+          license= {space.license}
+          arrivalTime= {space.arrivalTime}
+          departureTime={space.departureTime}
+          history={space.history}
         />
       )
     ))}

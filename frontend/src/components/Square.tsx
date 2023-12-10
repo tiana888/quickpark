@@ -1,16 +1,12 @@
 import { Button } from "@mui/material";
 import { updateSpace } from "@/utils/client";
 import { useState  } from "react";
+import { GetSpaceResponse } from "@lib/shared_types";
 
-type Info = {
-  floor: string;
-  section: string;
-	number: number;
-	priority: boolean;
-	occupied: boolean;
-  };
 
-  export default function Square({ floor, section, number, priority, occupied }: Info) {
+
+  export default function Square({ floor, section, number, priority, occupied, license, arrivalTime, departureTime, history }: Omit<GetSpaceResponse, "id">,
+  ) {
 	const isNumberOnRight = number <= 10;
   const isSingle = number < 10;
 
@@ -28,12 +24,32 @@ type Info = {
     return letters + numbers;
   }
 	const handleClick = async()=>{
+    const now = new Date();
     if(!occupied){
       const newLicense = await randomLicense();
-      await updateSpace( floor,section,number,{license: newLicense});
+      await updateSpace( 
+        floor, section, number,
+        {
+          license: newLicense, 
+          arrivalTime: now,
+        }
+      );
     }
     else{
-      await updateSpace( floor,section,number,{license: ""});
+      if(!arrivalTime || !license) return;
+      await updateSpace( 
+        floor,section,number,
+        {
+          history: [...history,{license:license, arrivalTime: arrivalTime, departureTime: now}]
+        }
+      );
+      await updateSpace( 
+        floor,section,number,
+        {
+          license: "",
+          arrivalTime: undefined
+        }
+      );
     }
     await updateSpace( floor,section,number,{occupied: !occupied})
 	}
