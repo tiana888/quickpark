@@ -7,11 +7,12 @@ export default function TestPage() {
     for( let k=0; k<3; k++){
       for( let j=0; j<6; j++){
         for( let i=1; i<=20; i++ ){
+          const isPrioirty = j<2 && [1, 2, 11, 12].includes(i);
           await createSpace({
             floor: floor[k],
             section: abc[j],
             number: i, 
-            priority: false, 
+            priority: isPrioirty, 
             occupied: false,
             history: []
           })
