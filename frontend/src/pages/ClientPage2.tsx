@@ -2,10 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link for navigation
 import HeaderBar from "@/components/HeaderBar";
 import NewInput from "@/components/NewInput";
-import { Tag } from 'react-bootstrap-icons';
-import { button } from '@material-tailwind/react';
 
-export default function ClientPage() {
+export default function ClientPage3() {
   // 创建一个数组，包含六个数字（可以是任意数字，这里用索引 i 作为 key）
   const gridItems = Array.from({ length: 6 }, (_, i) => i);
 
@@ -26,7 +24,7 @@ export default function ClientPage() {
   return (
     <>
       <HeaderBar />
-      <div>ClientPage</div>
+      <div>ClientPage2</div>
       <div className="mx-auto border rounded-lg w-2/3" onClick={handleViewClick} style={{ position: 'relative', cursor: 'pointer' }}>
         <NewInput
           placeholder="請輸入密碼"
@@ -117,12 +115,10 @@ export default function ClientPage() {
         ))}
       </div>
 
-      {/* Button to switch to ClientPage2 */}
-
-
-      <Link to="/clientpage/clientpage2">
-        <button className="my-10 mx-50 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          切換到 ClientPage2
+         {/* Button to switch to ClientPage2 */}
+      <Link to="/clientpage">  
+        <button className="my-10  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          切換到ClientPage
         </button>
       </Link>
 
@@ -134,5 +130,6 @@ export default function ClientPage() {
     </>
   );
 }
+
 
 
