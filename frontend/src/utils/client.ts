@@ -26,6 +26,9 @@ export function getSection(floor: string, section: string) {
 export function getSpace(floor: string, section: string, number: number) {
   return client.get<GetSpaceResponse>(`/spaces/${floor}/${section}/${number}`);
 }
+export function getSpaceByLicense(license: string) {
+  return client.get<GetSpaceResponse>(`/spaces/${license}`);
+}
 
 export function updateSpace(floor: string, section: string, number: number, input: UpdateSpacePayload) {
   return client.put<UpdateSpaceResponse>(`/spaces/${floor}/${section}/${number}`, input);

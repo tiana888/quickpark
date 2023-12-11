@@ -1,4 +1,4 @@
-import { createSpace, updateSpace, getSpace } from "@/utils/client";
+import { createSpace, updateSpace, getSpace, getSpaceByLicense } from "@/utils/client";
 
 export default function TestPage() {
   const Init_Spaces = async() => {
@@ -31,6 +31,11 @@ export default function TestPage() {
     const result = await getSpace("B1","A",1,);
     console.log(result);
   }
+  const Get_Space_By_License = async() => {
+    const result = await getSpaceByLicense("test123");
+    console.log(result);
+  }
+  
   
   return (
     <main className="container max-h-screen max-w-screen">
@@ -43,6 +48,9 @@ export default function TestPage() {
       </button>
       <button onClick={Get_Space} className="border-2 border-white">
         GET測試
+      </button>
+      <button onClick={Get_Space_By_License} className="border-2 border-white">
+        GET BY LICENSE測試
       </button>
       
     </main>
