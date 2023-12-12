@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+import type { checkAuthPayload } from "@lib/shared_types";
 import Dialog from "@mui/material/Dialog";
 
-import NewInput from "@/components/NewInput";
+import HomeInput from "@/components/HomeInput";
+import { checkAuth } from "@/utils/client";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -18,17 +20,31 @@ export default function HomePage() {
   function showAlert(message: string) {
     window.alert(message);
   }
-  const handleClick = (password?: string) => {
+  const handleClick = async (username?: string, password?: string) => {
+    if (!username) {
+      const message = "請輸入認證帳號";
+      showAlert(message);
+      return;
+    }
     if (!password) {
       const message = "請輸入認證密碼";
       showAlert(message);
       return;
     }
-    if (password === "123") {
+
+    const payload: checkAuthPayload = {
+      username: username,
+      password: password,
+    };
+    const check = await checkAuth(payload);
+    // console.log(check.data.success);
+    if (check.data.success === true) {
       navigate("/guardpage");
     } else {
-      const message = "密碼錯誤，請重新輸入密碼";
+      const message = "帳號或密碼錯誤，請重新輸入";
       showAlert(message);
+      navigate("/");
+      setDialogOpen(true);
       return;
     }
     setDialogOpen(false);
@@ -71,7 +87,7 @@ export default function HomePage() {
         </div>
       </Link>
       <Dialog open={DialogOpen} onClose={handleClose}>
-        <NewInput placeholder="請輸入密碼" onClick={handleClick} />
+        <HomeInput onClick={handleClick} />
       </Dialog>
     </main>
   );

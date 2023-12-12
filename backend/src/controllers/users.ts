@@ -14,12 +14,12 @@ export const checkAuth = async (
     const { username, password } = _req.body;
 
     const user = await UserModel.findOne({ username: username });
-    if (!user) {
-      return res.status(401).json({ success: false });
+    if(!user){
+      return res.status(200).json({ success: false });
     }
     const isValid = await bcrypt.compare(password, user?.hashed_password);
     if (!isValid) {
-      return res.status(401).json({ success: false });
+      return res.status(200).json({ success: false });
     }
 
     return res.status(200).json({ success: true });

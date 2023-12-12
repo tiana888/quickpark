@@ -1,8 +1,11 @@
+import type { checkAuthPayload } from "@lib/shared_types";
+
 import {
   createSpace,
   updateSpace,
   getSpace,
   getSpaceByLicense,
+  createAccount,
 } from "@/utils/client";
 
 export default function TestPage() {
@@ -47,6 +50,14 @@ export default function TestPage() {
     const result = await getSpaceByLicense("test123");
     console.log(result);
   };
+  const Create_Account = async () => {
+    const payload: checkAuthPayload = {
+      username: "test1",
+      password: "12345678",
+    };
+    const result = await createAccount(payload);
+    console.log(result);
+  };
 
   return (
     <main className="max-w-screen container max-h-screen">
@@ -62,6 +73,9 @@ export default function TestPage() {
       </button>
       <button onClick={Get_Space_By_License} className="border-2 border-white">
         GET BY LICENSE測試
+      </button>
+      <button onClick={Create_Account} className="border-2 border-white">
+        創建警衛帳號
       </button>
     </main>
   );
