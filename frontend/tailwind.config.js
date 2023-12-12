@@ -7,9 +7,8 @@ export default {
   plugins: [],
 };
 
-
 // material-tailwind config_start
-const withMT = require("@material-tailwind/react/utils/withMT"); 
+const withMT = require("@material-tailwind/react/utils/withMT");
 module.exports = withMT({
   content: [
     "./index.html",
