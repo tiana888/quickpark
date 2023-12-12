@@ -21,10 +21,17 @@ export function getSpaces() {
   return client.get<GetSpacesResponse>("/spaces");
 }
 export function getSection(floor: string, section: string) {
+<<<<<<< HEAD
   return client.get<GetSpaceResponse>(`/spaces/${floor}/${section}`);
+=======
+  return client.get<GetSpacesResponse>(`/spaces/${floor}/${section}`);
+>>>>>>> main
 }
 export function getSpace(floor: string, section: string, number: number) {
   return client.get<GetSpaceResponse>(`/spaces/${floor}/${section}/${number}`);
+}
+export function getSpaceByLicense(license: string) {
+  return client.get<GetSpaceResponse>(`/spaces/${license}`);
 }
 
 export function updateSpace(floor: string, section: string, number: number, input: UpdateSpacePayload) {

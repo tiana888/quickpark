@@ -4,6 +4,7 @@ import {
     getSpace,
     createSpace,
     updateSpace,
+    getSpaceByLicense,
   } from "../controllers/spaces";
   import express from "express";
   
@@ -11,10 +12,13 @@ import {
   
   // GET /api/spaces
   router.get("/", getSpaces);
-  // GET /api/sapces/:section
+  // GET /api/spaces/:section
   router.get("/:floor/:section", getSection);
-  // GET /api/sapces/:floor/:section/:number
+  // GET /api/spaces/:floor/:section/:number
   router.get("/:floor/:section/:number", getSpace);
+  // GET /api/spaces/:license
+  router.get("/:license", getSpaceByLicense);
+
 
   // POST /api/spaces
   router.post("/", createSpace);

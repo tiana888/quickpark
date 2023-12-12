@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 export default function HomePage() {
   const navigate = useNavigate();
   const [DialogOpen, setDialogOpen] = useState(false);
-
   const handleOpen = () => {
     setDialogOpen(true);
   };

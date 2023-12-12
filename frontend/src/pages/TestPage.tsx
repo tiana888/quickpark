@@ -1,4 +1,4 @@
-import { createSpace, updateSpace, getSpace } from "@/utils/client";
+import { createSpace, updateSpace, getSpace, getSpaceByLicense } from "@/utils/client";
 
 export default function TestPage() {
   const Init_Spaces = async() => {
@@ -7,11 +7,12 @@ export default function TestPage() {
     for( let k=0; k<3; k++){
       for( let j=0; j<6; j++){
         for( let i=1; i<=20; i++ ){
+          const isPrioirty = j<2 && [1, 2, 11, 12].includes(i);
           await createSpace({
             floor: floor[k],
             section: abc[j],
             number: i, 
-            priority: false, 
+            priority: isPrioirty, 
             occupied: false,
             history: []
           })
@@ -31,6 +32,11 @@ export default function TestPage() {
     const result = await getSpace("B1","A",1,);
     console.log(result);
   }
+  const Get_Space_By_License = async() => {
+    const result = await getSpaceByLicense("test123");
+    console.log(result);
+  }
+  
   
   return (
     <main className="container max-h-screen max-w-screen">
@@ -44,6 +50,10 @@ export default function TestPage() {
       <button onClick={Get_Space} className="border-2 border-white">
         GET測試
       </button>
+      <button onClick={Get_Space_By_License} className="border-2 border-white">
+        GET BY LICENSE測試
+      </button>
+      
     </main>
   );
 }
