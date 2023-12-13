@@ -2,12 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import type { checkAuthPayload } from "@lib/shared_types";
 import Dialog from "@mui/material/Dialog";
 
 import HomeInput from "@/components/HomeInput";
-import { checkAuth } from "@/utils/client";
 import { useAuth } from "@/contexts/AuthContext"
+import '../styles.css';
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -55,7 +54,7 @@ export default function HomePage() {
         className="absolute right-0 top-0 h-20 w-20 lg:right-10 lg:top-10 lg:h-28 lg:w-28"
         onClick={handleOpen}
       >
-        <img src="./home_guard.png" alt="guard" />
+        <img src="./home_guard.png" alt="guard" className="flip-left" />
       </button>
       <Link to="/clientpage">
         <div className="flex h-screen w-screen flex-col items-center justify-center">
@@ -66,20 +65,21 @@ export default function HomePage() {
               <br />
               <span className="ml-20 text-7xl">Parking</span>
             </div>
-            <img className="ml-20 h-48 w-64" src="./home_car.png" alt="car" />
+            {/* <img className="ml-20 h-[100px] w-[100px]" src="./home_P.png" alt="P" /> */}
+            <img className="ml-20 h-[142px] w-[261px]" src="./home_car.gif" alt="car" />
           </div>
 
           {/* 在非 lg 尺寸下顯示的元素 */}
           <h1 className="text-6xl lg:hidden">Quick</h1>
           <h1 className="text-6xl lg:hidden">Parking</h1>
-          <img
-            className="mt-16 h-36 w-52 lg:hidden"
-            src="./home_car.png"
-            alt="car"
-          />
+            <img
+              className="lg:hidden mt-16 ml-16 h-[142px] w-[261px]"
+              src="./home_car.gif"
+              alt="car"
+            />
 
           <img
-            className="mt-20 h-24 w-72 lg:h-40 lg:w-6/12"
+            className="mt-20 h-24 w-72 lg:h-40 lg:w-6/12 flicker-animation"
             src="./home_qp.png"
             alt="word: quick park"
           />

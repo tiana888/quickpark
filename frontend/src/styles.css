@@ -1,0 +1,33 @@
+/* styles.css */
+
+.flicker-animation {
+    animation: flicker 2s infinite;
+  }
+  
+  @keyframes flicker {
+    0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+      opacity: 1;
+    }
+  
+    10%, 21.999%, 63%, 69.999%, 65%, 69.999%, 71%, 99% {
+      opacity: 0;
+    }
+  }
+
+  .flip-left {
+    animation: flipLeft 2s infinite; /* 調整動畫時間和迭代次數 */
+    animation-delay: 1s;
+  }
+
+  @keyframes flipLeft {
+    0% {
+      transform: rotateY(0deg);
+    }
+    50% {
+      transform: rotateY(180deg);
+    }
+    100% {
+      transform: rotateY(0deg);
+    }
+  }
+  
