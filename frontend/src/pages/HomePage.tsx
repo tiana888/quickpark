@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -5,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 
 import HomeInput from "@/components/HomeInput";
-import { useAuth } from "@/contexts/AuthContext"
+import { useAuth } from "@/contexts/AuthContext";
+import Slide from '@mui/material/Slide';
+import type { TransitionProps } from '@mui/material/transitions';
 import '../styles.css';
 
 export default function HomePage() {
@@ -48,6 +51,15 @@ export default function HomePage() {
     setDialogOpen(false);
   };
 
+  const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & {
+      children: React.ReactElement<unknown>;
+    },
+    ref: React.Ref<unknown>,
+  ) {
+    return <Slide direction="left" ref={ref} {...props} timeout={{ enter: 500, exit: 500 }} />;
+  });
+
   return (
     <main className="max-w-screen container max-h-screen">
       <button
@@ -85,7 +97,7 @@ export default function HomePage() {
           />
         </div>
       </Link>
-      <Dialog open={DialogOpen} onClose={handleClose}>
+      <Dialog open={DialogOpen} onClose={handleClose} TransitionComponent={Transition}>
         <HomeInput onClick={handleClick} />
       </Dialog>
     </main>

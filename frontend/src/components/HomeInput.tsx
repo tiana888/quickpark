@@ -1,19 +1,16 @@
-import { useRef, useEffect } from "react";
-
-import Button from "@mui/material/Button";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import TextField from "@mui/material/TextField";
+import { useRef, useEffect,useState } from "react";
+import React from 'react';
+import {Visibility,VisibilityOff} from '@mui/icons-material';
+import { Button,IconButton,InputAdornment,DialogTitle,DialogContent,DialogActions,TextField } from "@mui/material";
 
 type NewDialogProps = {
   onClick?: (inputRef1?: string, inputRef2?: string) => void;
 };
 
 export default function HomeInput({ onClick }: NewDialogProps) {
-  // using a ref to get the dom element is one way to get the value of a input
-  // another way is to use a state variable and update it on change, which can be found in CardDialog.tsx
   const accountfieldRef = useRef<HTMLInputElement>(null);
   const passwordfieldRef = useRef<HTMLInputElement>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     // Automatically set focus on the account field when the dialog opens
@@ -21,6 +18,10 @@ export default function HomeInput({ onClick }: NewDialogProps) {
       accountfieldRef.current.focus();
     }
   }, []);
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -36,23 +37,43 @@ export default function HomeInput({ onClick }: NewDialogProps) {
   };
 
   return (
+    <>
+    <DialogTitle className="flex border-b justify-center">
+        Identity verification
+    </DialogTitle>
     <div className="mx-auto flex items-center justify-center rounded-lg bg-white">
       <DialogContent>
-        <TextField
-          className="w-full p-1 lg:p-2"
-          placeholder="請輸入帳號"
-          onKeyDown={handleKeyDown}
-          inputRef={accountfieldRef}
-          variant="outlined"
-          autoFocus={true}
-        />
-        <TextField
-          className="w-full p-1 lg:p-2"
-          placeholder="請輸入密碼"
-          onKeyDown={handleKeyDown}
-          inputRef={passwordfieldRef}
-          variant="outlined"
-        />
+        <div className="flex flex-col">
+          <div className="mb-1">
+            <TextField
+              className="w-full p-1 lg:p-2"
+              placeholder="請輸入帳號"
+              onKeyDown={handleKeyDown}
+              inputRef={accountfieldRef}
+              variant="outlined"
+              autoFocus={true}
+            />
+          </div>
+          <div className="mt-1">
+            <TextField
+              className="w-full p-1 lg:p-2"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="請輸入密碼"
+              onKeyDown={handleKeyDown}
+              inputRef={passwordfieldRef}
+              variant="outlined"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleTogglePassword} edge="end">
+                      {showPassword ? <Visibility />:<VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
+        </div>
       </DialogContent>
       <DialogActions>
         <Button
@@ -75,5 +96,6 @@ export default function HomeInput({ onClick }: NewDialogProps) {
         </Button>
       </DialogActions>
     </div>
+    </>
   );
 }
