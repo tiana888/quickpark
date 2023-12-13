@@ -7,9 +7,11 @@ import Dialog from "@mui/material/Dialog";
 
 import HomeInput from "@/components/HomeInput";
 import { checkAuth } from "@/utils/client";
+import { useAuth } from "@/contexts/AuthContext"
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [DialogOpen, setDialogOpen] = useState(false);
   const handleOpen = () => {
     setDialogOpen(true);
@@ -32,20 +34,17 @@ export default function HomePage() {
       return;
     }
 
-    const payload: checkAuthPayload = {
-      username: username,
-      password: password,
-    };
-    const check = await checkAuth(payload);
-    // console.log(check.data.success);
-    if (check.data.success === true) {
-      navigate("/guardpage");
-    } else {
-      const message = "帳號或密碼錯誤，請重新輸入";
+    try{
+      await login(username, password);
+      navigate('/guardpage');
+    } catch (error) {
+      // Handle authentication failure
+      const message = '帳號或密碼錯誤，請重新輸入';
       showAlert(message);
-      navigate("/");
+      navigate('/');
       setDialogOpen(true);
-      return;
+    } finally {
+      setDialogOpen(false);
     }
     setDialogOpen(false);
   };

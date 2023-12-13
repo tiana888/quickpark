@@ -1,11 +1,19 @@
 import { useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 import HeaderBar from "@/components/HeaderBar";
 import NewInput from "@/components/NewInput";
 import ProgressBar from "@/components/ProgressBar";
 
 export default function GuardPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  useEffect(() => {
+    // 如果使用者未驗證，則導向errorpage
+    if (!user) {
+      navigate('/errorpage');
+    }
+  }, [user, navigate]);
 
   function showAlert(message: string) {
     window.alert(message);
