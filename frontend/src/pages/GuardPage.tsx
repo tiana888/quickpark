@@ -9,22 +9,6 @@ import SearchBar from "@/components/SearchBar";
 
 import {getSpaces} from "@/utils/client";
 
-export type SpaceData = {
-  id: string;
-  floor: string;
-  section: string;
-  number: number;
-  priority: boolean;
-  occupied: boolean;
-  license?: string;
-  arrivalTime?: Date;
-  departureTime?: Date; 
-  history: {
-    license: string;
-    arrivalTime: Date;
-    departureTime: Date;
-  }[]; 
-};
 
 export default function GuardPage() {
   const navigate = useNavigate();
@@ -83,7 +67,7 @@ export default function GuardPage() {
         B1occupiedTime = B1occupiedTime + DurationMilliseconds;
       })
     })
-    B1occupiedRate = B1occupiedTime/864000//一天的秒數＊100
+    B1occupiedRate = B1occupiedTime/120/864000//一天的秒數＊100
     
     let B2occupiedTime = 0;
     B2.forEach((space) => {
@@ -110,7 +94,7 @@ export default function GuardPage() {
         B2occupiedTime = B2occupiedTime + DurationMilliseconds;
       })
     })
-    B2occupiedRate = B2occupiedTime/864000//一天的秒數＊100
+    B2occupiedRate = B2occupiedTime/120/864000//一天的秒數＊100
     
     let B3occupiedTime = 0;
     B3.forEach((space) => {
@@ -132,7 +116,7 @@ export default function GuardPage() {
         B3occupiedTime = B3occupiedTime + DurationMilliseconds;
       })
     })
-    B3occupiedRate = B3occupiedTime/864000//一天的秒數＊100
+    B3occupiedRate = B3occupiedTime/120/864000//一天的秒數＊100
     console.log(B1occupiedRate);
     console.log(B2occupiedRate);
     console.log(B3occupiedRate);
@@ -155,8 +139,6 @@ export default function GuardPage() {
         Refresh
       </button>
       <div className="mx-auto border rounded-lg w-4/5 gap-4 p-7 m-4">
-      <>當前使用率</>
-      <ProgressBar percentage = {50} _text = " "/> 
       <>當日B1使用率</>
       <ProgressBar percentage = {B1occupiedRate} _text = " "/> 
       <>當日B2使用率</>
