@@ -1,19 +1,45 @@
+import { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import { GetSpacesResponse } from "@lib/shared_types";
+
 import HeaderBar from "@/components/HeaderBar";
+import Square from "@/components/Square";
+import { getSection } from "@/utils/client";
 export default function SpaceZoomPage() {
+  const [spaces, setSpaces] = useState<GetSpacesResponse>([]);
+  const remainingSpaces = spaces.filter(
+    (space) => space.number <= 20 && !space.occupied,
+  );
+  const { floor, section } = useParams();
+  const fetchSpace = useCallback(async () => {
+    try {
+      if (!floor || !section) return;
+      const response = await getSection(floor, section);
+      const spacesData = response.data;
+      setSpaces(spacesData);
+    } finally {
+      console.log(spaces);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchSpace();
+  });
   return (
     <>
-<<<<<<< Updated upstream
-    <HeaderBar />
-      <div>SpaceZoomPage</div>
-=======
       <HeaderBar />
 
       {/* <Button onClick={}>INIT</Button> */}
 
       <div className="ml-10 ">
-        <p className="text-3xl"> Floor: {floor}  Area: {section} </p>
-        <p className="text-3xl"> 剩餘車位數: {remainingSpaces.length}</p>
+        <p className="text-3xl">
+          {" "}
+          樓層: {floor} 區域: {section}{" "}
+        </p>
+        <p className="m-5 text-3xl"> 剩餘車位數: {remainingSpaces.length}</p>
       </div>
+    
       <div className="flex flex-row overflow-auto justify-between border-2 border-white rounded-lg w-auto h-screen m-8 gap-16" >
     
  {/* 1-10 */}
@@ -57,7 +83,6 @@ export default function SpaceZoomPage() {
 </div>
 </div>
 
->>>>>>> Stashed changes
     </>
   );
 }

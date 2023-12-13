@@ -1,13 +1,22 @@
-import { Button } from "@mui/material";
-import { updateSpace } from "@/utils/client";
-import { useState  } from "react";
+import { useState } from "react";
+
 import { GetSpaceResponse } from "@lib/shared_types";
+import { Button } from "@mui/material";
 
+import { updateSpace } from "@/utils/client";
 
-
-  export default function Square({ floor, section, number, priority, occupied, license, arrivalTime, departureTime, history }: Omit<GetSpaceResponse, "id">,
-  ) {
-	const isNumberOnRight = number <= 10;
+export default function Square({
+  floor,
+  section,
+  number,
+  priority,
+  occupied,
+  license,
+  arrivalTime,
+  departureTime,
+  history,
+}: Omit<GetSpaceResponse, "id">) {
+  const isNumberOnRight = number <= 10;
   const isSingle = number < 10;
 
   const randomLicense = async () => {
