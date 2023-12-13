@@ -7,8 +7,10 @@ import {
   getSpaceByLicense,
   createAccount,
 } from "@/utils/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function TestPage() {
+  const {logout} = useAuth()
   const Init_Spaces = async () => {
     const floor = ["B1", "B2", "B3"];
     const abc = ["A", "B", "C", "D", "E", "F"];
@@ -58,6 +60,9 @@ export default function TestPage() {
     const result = await createAccount(payload);
     console.log(result);
   };
+  const Logout = async ()=>{
+    await logout();
+  }
 
   return (
     <main className="max-w-screen container max-h-screen">
@@ -76,6 +81,9 @@ export default function TestPage() {
       </button>
       <button onClick={Create_Account} className="border-2 border-white">
         創建警衛帳號
+      </button>
+      <button onClick={Logout} className="border-2 border-white">
+        登出
       </button>
     </main>
   );
