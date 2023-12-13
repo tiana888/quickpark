@@ -11,7 +11,10 @@ import type {
 import type { Request, Response } from "express";
 
 // Get all Spaces
-export const getSpaces = async (_: Request, res: Response<GetSpacesResponse>) => {
+export const getSpaces = async (
+  _: Request,
+  res: Response<GetSpacesResponse>,
+) => {
   try {
     const spaces = await SpaceModel.find({});
 
@@ -23,11 +26,11 @@ export const getSpaces = async (_: Request, res: Response<GetSpacesResponse>) =>
         section: space.section,
         number: space.number,
         priority: space.priority,
-				occupied: space.occupied,
-				license: space.license,
-				arrivalTime: space.arrivalTime,
-				departureTime: space.departureTime,
-				history: space.history,
+        occupied: space.occupied,
+        license: space.license,
+        arrivalTime: space.arrivalTime,
+        departureTime: space.departureTime,
+        history: space.history,
       };
     });
 
@@ -38,12 +41,12 @@ export const getSpaces = async (_: Request, res: Response<GetSpacesResponse>) =>
 };
 // Get a section
 export const getSection = async (
-  req: Request<{ floor: string, section: string }>,
+  req: Request<{ floor: string; section: string }>,
   res: Response<GetSpacesResponse | { error: string }>,
 ) => {
   try {
-    const { floor, section  } = req.params;
-    const spaces = await SpaceModel.find({ floor:floor, section:section });
+    const { floor, section } = req.params;
+    const spaces = await SpaceModel.find({ floor: floor, section: section });
     if (!spaces) {
       return res.status(404).json({ error: "It is not valid" });
     }
@@ -54,11 +57,11 @@ export const getSection = async (
         section: space.section,
         number: space.number,
         priority: space.priority,
-				occupied: space.occupied,
-				license: space.license,
-				arrivalTime: space.arrivalTime,
-				departureTime: space.departureTime,
-				history: space.history,
+        occupied: space.occupied,
+        license: space.license,
+        arrivalTime: space.arrivalTime,
+        departureTime: space.departureTime,
+        history: space.history,
       };
     });
 
@@ -70,12 +73,16 @@ export const getSection = async (
 
 // Get a space
 export const getSpace = async (
-  req: Request<{ floor:string, section: string, number: number }>,
+  req: Request<{ floor: string; section: string; number: number }>,
   res: Response<GetSpaceResponse | { error: string }>,
 ) => {
   try {
     const { floor, section, number } = req.params;
-    const space = await SpaceModel.findOne({floor:floor, section:section, number:number});
+    const space = await SpaceModel.findOne({
+      floor: floor,
+      section: section,
+      number: number,
+    });
     if (!space) {
       return res.status(404).json({ error: "It is not valid" });
     }
@@ -83,7 +90,7 @@ export const getSpace = async (
     return res.status(200).json({
       id: space.id,
       floor: space.floor,
-      section:space.section,
+      section: space.section,
       number: space.number,
       priority: space.priority,
       occupied: space.occupied,
@@ -97,6 +104,33 @@ export const getSpace = async (
   }
 };
 
+export const getSpaceByLicense = async (
+  req: Request<{ license: string }>,
+  res: Response<GetSpaceResponse | { error: string }>,
+) => {
+  try {
+    const { license } = req.params;
+    const space = await SpaceModel.findOne({ license: license });
+    if (!space) {
+      return res.status(404).json({ error: "It is not valid" });
+    }
+
+    return res.status(200).json({
+      id: space.id,
+      floor: space.floor,
+      section: space.section,
+      number: space.number,
+      priority: space.priority,
+      occupied: space.occupied,
+      license: space.license,
+      arrivalTime: space.arrivalTime,
+      departureTime: space.departureTime,
+      history: space.history,
+    });
+  } catch (error) {
+    genericErrorHandler(error, res);
+  }
+};
 // Create a space
 export const createSpace = async (
   req: Request<never, never, CreateSpacePayload>,
@@ -112,13 +146,23 @@ export const createSpace = async (
 
 // Update a space
 export const updateSpace = async (
-  req: Request<{ floor: string, section:string, number:number }, never, UpdateSpacePayload>,
+  req: Request<
+    { floor: string; section: string; number: number },
+    never,
+    UpdateSpacePayload
+  >,
   res: Response<UpdateSpaceResponse | { error: string }>,
 ) => {
   try {
     const { floor, section, number } = req.params;
     const { occupied, license, arrivalTime, departureTime, history } = req.body;
-    const updateData: { [key: string]: string|Date|boolean|{ license: string; arrivalTime: Date; departureTime: Date; }[]} = {};
+    const updateData: {
+      [key: string]:
+        | string
+        | Date
+        | boolean
+        | { license: string; arrivalTime: Date; departureTime: Date }[];
+    } = {};
 
     if (occupied !== undefined) updateData.occupied = occupied;
     if (license !== undefined) updateData.license = license;
@@ -127,10 +171,10 @@ export const updateSpace = async (
     if (history !== undefined) updateData.history = history;
     // Update the space
     const newSpace = await SpaceModel.findOneAndUpdate(
-      {floor, section, number},
-       
-				updateData,
-			
+      { floor, section, number },
+
+      updateData,
+
       { new: true },
     );
 
