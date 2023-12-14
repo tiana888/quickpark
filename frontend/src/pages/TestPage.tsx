@@ -46,6 +46,27 @@ export default function TestPage() {
   };
 
 
+  const Reset_Spaces = async () => {
+    const abc = ["A", "B", "C", "D", "E", "F"];
+    //B1
+    for (let j = 0; j < 6; j++) {
+      for (let i = 1; i <= 20; i++) {
+        let ABC = abc[j];
+        console.log("B1",ABC,i);
+        await updateSpace("B1", ABC, i, {
+          history: [],
+        });
+        console.log("B2",ABC,i);
+        await updateSpace("B2", ABC, i, {
+          history: [],
+        });
+        console.log("B3",ABC,i);
+        await updateSpace("B3", ABC, i, {
+          history: [],
+        });
+      }
+    }
+  };
   const Monk_Spaces = async () => {
     const abc = ["A", "B", "C", "D", "E", "F"];
     //B1
@@ -59,17 +80,11 @@ export default function TestPage() {
           history: [
             {
               license: "test-113",
-              arrivalTime: new Date("2023-12-14T09:01:00.171Z"),
-              departureTime: new Date("2023-12-14T21:01:00.171Z"),
+              arrivalTime: new Date("2023-12-14T09:01:00.171+08:00"),
+              departureTime: new Date("2023-12-14T21:01:00.171+08:00"),
             },
           ],
         });
-      }
-    }
-    //B2
-    for (let j = 0; j < 6; j++) {
-      for (let i = 1; i <= 20; i++) {
-        let ABC = abc[j];
         console.log("B2",ABC,i);
         await updateSpace("B2", ABC, i, {
           occupied: true,
@@ -77,17 +92,11 @@ export default function TestPage() {
           history: [
             {
               license: "test-113",
-              arrivalTime: new Date("2023-12-13T09:01:00.171Z"),
-              departureTime: new Date("2023-12-15T21:01:00.171Z"),
+              arrivalTime: new Date("2023-12-14T09:01:00.171+08:00"),
+              departureTime: new Date("2023-12-15T21:01:00.171+08:00"),
             },
           ],
         });
-      }
-    }
-    //B3
-    for (let j = 0; j < 6; j++) {
-      for (let i = 1; i <= 20; i++) {
-        let ABC = abc[j];
         console.log("B3",ABC,i);
         await updateSpace("B3", ABC, i, {
           occupied: true,
@@ -95,14 +104,13 @@ export default function TestPage() {
           history: [
             {
               license: "test-113",
-              arrivalTime: new Date("2023-12-14T08:01:00.171Z"),
-              departureTime: new Date("2023-12-14T21:01:00.171Z"),
+              arrivalTime: new Date("2023-12-14T08:01:00.171+08:00"),
+              departureTime: new Date("2023-12-14T21:01:00.171+08:00"),
             },
           ],
         });
       }
     }
-    
   };
 
 
@@ -137,6 +145,9 @@ export default function TestPage() {
       </button>
       <button onClick={Monk_Spaces} className="border-2 border-white">
         資料新增模擬
+      </button>
+      <button onClick={Reset_Spaces} className="border-2 border-white">
+        清除歷史資料
       </button>
       <button onClick={Get_Space} className="border-2 border-white">
         GET測試

@@ -11,7 +11,6 @@ import SearchBar from "@/components/SearchBar";
 
 import {getSpaces} from "@/utils/client";
 
-
 export default function GuardPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -21,6 +20,15 @@ export default function GuardPage() {
       navigate('/errorpage');
     }
   }, [user, navigate]);
+  
+  // 使用 setInterval 定期觸發 Get_Space 函數
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      Get_Space();
+    }, 2000);
+    // 清除 interval，以防止組件卸載時仍然執行
+    return () => clearInterval(intervalId);
+  }, []);
 
   const [B1occupiedRate, setB1occupiedRate] = useState(0);
   const [B2occupiedRate, setB2occupiedRate] = useState(0);
@@ -42,13 +50,13 @@ export default function GuardPage() {
     
     const dayStart: Date = targetDate;dayStart.setHours(0, 0, 1, 0);
     const startTime: number = dayStart.getTime();
-    dayStart.getTime()
     const dayEnd: Date  = targetDate;dayEnd.setHours(23, 59, 59, 999);
     const endTime: number = dayEnd.getTime();
   
     //getData
-    const result = getSpaces();
-    const allSpaces = (await result).data;
+    const result = await getSpaces();
+    const allSpaces = result.data;
+    console.log(allSpaces);
     //每層樓的車位
     const B1 = allSpaces.slice(0,                    allSpaces.length/3);
     const B2 = allSpaces.slice(allSpaces.length/3,   allSpaces.length/3*2);
@@ -64,13 +72,15 @@ export default function GuardPage() {
         const ArrMonth: number = Arr.getMonth();
         const ArrDay  : number = Arr.getDate();
         const ArrTime : number = Arr.getTime();
-        //console.log(ArrYear,ArrMonth,ArrDay,ArrTime)
+        //console.log(Arr.getHours(),ArrYear,ArrMonth,ArrDay,ArrTime)
         const Dep: Date = new Date(spaceHistory.departureTime)
         const DepYear : number = Dep.getFullYear();
         const DepMonth: number = Dep.getMonth();
         const DepDay  : number = Dep.getDate();
         const DepTime : number = Dep.getTime();
-        //console.log(DepYear,DepMonth,DepDay,DepTime)
+        //console.log(Dep.getHours(),DepYear,DepMonth,DepDay,DepTime)
+        //console.log(targetDate.getHours(),targetYear,targetMonth,targetDay)
+        
         //假設今天一月一號
         //找出今天離場的車子
         if(DepDay===targetDay && DepMonth===targetMonth && DepYear===targetYear){
@@ -106,23 +116,23 @@ export default function GuardPage() {
         const DepMonth: number = Dep.getMonth();
         const DepDay  : number = Dep.getDate();
         const DepTime : number = Dep.getTime();
-        console.log(DepYear,DepMonth,DepDay,DepTime)
-        console.log(targetYear,targetMonth,targetDay,startTime)
+        //console.log(DepYear,DepMonth,DepDay,DepTime)
+        //console.log(targetYear,targetMonth,targetDay,startTime)
         
         if(ArrDay===targetDay && ArrMonth===targetMonth && ArrYear===targetYear){
           DurationMilliseconds = endTime-ArrTime;
         }
         if(DepDay===targetDay && DepMonth===targetMonth && DepYear===targetYear){
           DurationMilliseconds = DepTime-startTime;
-          console.log(DepTime)
-            console.log(startTime)
+          //console.log(DepTime)
+            //console.log(startTime)
         }
         if(DepDay===targetDay && DepMonth===targetMonth && DepYear===targetYear){
           if(ArrDay===targetDay && ArrMonth===targetMonth && ArrYear===targetYear){
             DurationMilliseconds = DepTime- ArrTime;
           }    
         }
-        console.log(DurationMilliseconds)
+        //console.log(DurationMilliseconds)
         B2occupiedTime = B2occupiedTime + DurationMilliseconds/120;
       })
     })
