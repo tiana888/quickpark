@@ -3,15 +3,31 @@ import { useEffect } from "react";
 import { useState } from 'react';
 
 import { useAuth } from "@/contexts/AuthContext";
-import HeaderBar from "@/components/HeaderBar";
 //import NewInput from "@/components/NewInput";
 import ProgressBar from "@/components/ProgressBar";
 import SearchBar from "@/components/SearchBar";
-//import { useNavigate } from 'react-router-dom';
 
 import {getSpaces} from "@/utils/client";
 
+export type SpaceData = {
+  id: string;
+  floor: string;
+  section: string;
+  number: number;
+  priority: boolean;
+  occupied: boolean;
+  license?: string;
+  arrivalTime?: Date;
+  departureTime?: Date; 
+  history: {
+    license: string;
+    arrivalTime: Date;
+    departureTime: Date;
+  }[]; 
+};
+
 export default function GuardPage() {
+  const currentDate = new Date();
   const navigate = useNavigate();
   const { user } = useAuth();
   useEffect(() => {
@@ -176,7 +192,9 @@ export default function GuardPage() {
 
   return (
     <>
-      <HeaderBar />
+      <button onClick={() => navigate('/')} className="back-button">
+        {'<返回主頁面'}
+      </button>
       <div>GuardPage</div>
       <button className="mx-auto border border-solid border-blue-500 border-2 h-20 w-20 rounded-lg lg:right-10 lg:top-10 lg:h-28 lg:w-28">
         <img

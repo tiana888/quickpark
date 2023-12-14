@@ -1,6 +1,6 @@
-import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 
+import { Router, Route, Routes } from "react-router-dom";
 import ClientPage from "./pages/ClientPage";
 import GuardPage from "./pages/GuardPage";
 import HistoryPage from "./pages/HistoryPage";
@@ -27,6 +27,7 @@ function App() {
         <Route path="/testpage" element={<TestPage />} />
         <Route path="/clientpage/clientpage2" element={<ClientPage2 />} />
         <Route path="/clientpage/clientpage3" element={<ClientPage3 />} />
+        <Route path="/guardpage/historypage/location" element={<HistoryPage />} />
       </Routes>
     </AuthProvider>
   );

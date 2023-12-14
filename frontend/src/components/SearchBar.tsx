@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
-  const [floor, setFloor] = useState('1F');
+  const [floor, setFloor] = useState('B1');
   const [section, setSection] = useState('A');
-  const [number, setNumber] = useState('');
+  const [number , setNumber] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -24,7 +24,7 @@ const SearchBar = () => {
         onChange={(e) => setFloor(e.target.value)} 
         className="border p-2 rounded text-black w-32"
       >
-        {['1F', '2F', '3F', '4F', '5F', '6F'].map(f => (
+        {['B1', 'B2', 'B3', 'B4', 'B5', 'B6'].map(f => (
           <option key={f} value={f}>{f}</option>
         ))}
       </select>
