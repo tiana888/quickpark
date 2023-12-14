@@ -1,3 +1,4 @@
+// controllers/spaces.js
 import SpaceModel from "../models/space";
 import { genericErrorHandler } from "../utils/errors";
 import type {
@@ -10,6 +11,29 @@ import type {
 } from "@lib/shared_types";
 import type { Request, Response } from "express";
 
+// Get spaces by query parameters
+export const getSpacesByQuery = async (req: Request, res: Response) => {
+  try {
+    const { floor, section, number } = req.query;
+    const query: any = {};
+    if (floor) query.floor = floor;
+    if (section) query.section = section;
+    // 斷言 number 是 string 類型後再進行 parseInt
+    if (typeof number === 'string') query.number = parseInt(number, 10);
+
+
+    const spaces = await SpaceModel.find(query);
+    if (spaces.length === 0) {
+      return res.status(404).json({ error: "未存在相符資料" });
+    }
+    res.status(200).json(spaces);
+  } catch (error) {
+    genericErrorHandler(error, res);
+  }
+};
+
+
+///////////////
 // Get all Spaces
 export const getSpaces = async (_: Request, res: Response<GetSpacesResponse>) => {
   try {

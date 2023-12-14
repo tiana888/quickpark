@@ -1,0 +1,77 @@
+/* HistoryPage.css - 精簡版 */
+
+.history-page-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.table-auto {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0; /* 為表格添加上下間距 */
+}
+
+/* 合併表格的 th 和 td 的邊框和文本對齊樣式 */
+.table-auto th,
+.table-auto td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center; /* 文本置中 */
+}
+
+/* 設置表格標題樣式 */
+.table-auto thead th {
+  background-color: #f2f2f2;
+  color: black; /* 黑色字體 */
+  font-weight: bold; /* 字體加粗 */
+}
+
+/* 分頁容器樣式 */
+.pagination-container {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  margin: 20px 0; /* 上下間距 */
+}
+
+/* 分頁按鈕樣式 */
+.pagination-container button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* 過渡效果 */
+}
+
+/* 分頁按鈕懸停和禁用狀態樣式 */
+.pagination-container button:hover {
+  background-color: #367c39; /* 按鈕懸停效果 */
+}
+
+.pagination-container button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* 當前狀態樣式 */
+.current-status {
+  font-size: 1.2em; /* 字體大小 */
+  font-weight: bold; /* 字體加粗 */
+  color: white; /* 字體顏色 */
+  text-align: center; /* 文本置中 */
+  margin-bottom: 20px; /* 下間距 */
+}
+
+.back-button {
+  font-size: 1.5em; /* 或其他您想要的大小 */
+  font-weight: bold;
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin-right: 10px; /* 為按鈕添加一些右邊距 */
+  /* 您可能還想添加其他樣式，如顏色、懸停效果等 */
+}

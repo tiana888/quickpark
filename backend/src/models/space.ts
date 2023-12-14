@@ -54,8 +54,8 @@ const SpaceSchema = new mongoose.Schema<SpaceDocument>(
 			departureTime:{
 				type: Date,
 				required: false,
-			},
-    }]
+			}
+    }],
   },
   {
     timestamps: true,

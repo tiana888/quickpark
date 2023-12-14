@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Router, Route, Routes } from "react-router-dom";
 import ClientPage from "./pages/ClientPage";
 import GuardPage from "./pages/GuardPage";
 import HistoryPage from "./pages/HistoryPage";
@@ -18,6 +18,7 @@ function App() {
         <Route path="/guardpage" element={<GuardPage />} />
         <Route path="/guardpage/historypage" element={<HistoryPage />} />
         <Route path="/testpage" element={<TestPage />} />
+        <Route path="/guardpage/historypage/location" element={<HistoryPage />} />
       </Routes>
     </>
   );
