@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link for navigation
-=======
-import React from "react";
-
->>>>>>> 59d7336085306016ea0769227c77b5c004aca0c4
 import HeaderBar from "@/components/HeaderBar";
 import NewInput from "@/components/NewInput";
 import { Tag } from 'react-bootstrap-icons';
@@ -32,7 +27,6 @@ export default function ClientPage() {
     <>
       <HeaderBar />
       <div>ClientPage</div>
-<<<<<<< HEAD
       <div className="mx-auto border rounded-lg w-2/3" onClick={handleViewClick} style={{ position: 'relative', cursor: 'pointer' }}>
         <NewInput
           placeholder="請輸入密碼"
@@ -61,47 +55,6 @@ export default function ClientPage() {
 
       {/* Grid items */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0px', marginTop: '100px' }}>
-=======
-      <div
-        className="mx-auto w-2/3 rounded-lg border"
-        onClick={handleViewClick}
-        style={{ position: "relative", cursor: "pointer" }}
-      >
-        <NewInput placeholder="請輸入密碼" />
-        <img
-          src="/ColorBar.png"
-          alt="color"
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "25%",
-            height: "25%",
-          }}
-        />
-        {/* Clickable area for viewing */}
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "0",
-            transform: "translate(0, -50%)",
-            width: "25%",
-            height: "25%",
-          }}
-        ></div>
-      </div>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
-          gap: "0px",
-          marginTop: "100px",
-        }}
-      >
->>>>>>> 59d7336085306016ea0769227c77b5c004aca0c4
         {gridItems.map((item, index) => (
           <div
             key={item}
