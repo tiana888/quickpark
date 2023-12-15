@@ -1,33 +1,137 @@
 /* styles.css */
 
 .flicker-animation {
-    animation: flicker 2s infinite;
-  }
-  
-  @keyframes flicker {
-    0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
-      opacity: 1;
-    }
-  
-    10%, 21.999%, 63%, 69.999%, 65%, 69.999%, 71%, 99% {
-      opacity: 0;
-    }
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+  0%,
+  19.999%,
+  22%,
+  62.999%,
+  64%,
+  64.999%,
+  70%,
+  100% {
+    opacity: 1;
   }
 
-  .flip-left {
-    animation: flipLeft 2s infinite; /* 調整動畫時間和迭代次數 */
-    animation-delay: 1s;
+  10%,
+  21.999%,
+  63%,
+  69.999%,
+  65%,
+  69.999%,
+  71%,
+  99% {
+    opacity: 0;
   }
+}
 
-  @keyframes flipLeft {
-    0% {
-      transform: rotateY(0deg);
-    }
-    50% {
-      transform: rotateY(180deg);
-    }
-    100% {
-      transform: rotateY(0deg);
-    }
+.flip-left {
+  animation: flipLeft 2s infinite; /* 調整動畫時間和迭代次數 */
+  animation-delay: 1s;
+}
+
+@keyframes flipLeft {
+  0% {
+    transform: rotateY(0deg);
   }
-  
+  50% {
+    transform: rotateY(180deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+/* 設置 div 的基本樣式 */
+.corner-border-box {
+  position: relative;
+  width: 100px; /* 這是 div 的寬度 */
+  height: 100px; /* 這是 div 的高度 */
+  background-color: transparent; /* 背景色 */
+}
+
+/* 創建四個角的邊框 */
+.corner-border-box::before,
+.corner-border-box::after {
+  content: "";
+  position: absolute;
+  width: 20px; /* 角邊框的寬度 */
+  height: 20px; /* 角邊框的高度 */
+  border: 2px solid black; /* 邊框顏色和粗細 */
+}
+
+/* 左上角 */
+.corner-border-box::before {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+}
+
+/* 右上角 */
+.corner-border-box::after {
+  top: 0;
+  right: 0;
+  border-left: none;
+  border-bottom: none;
+}
+
+/* 使用 :after 的偽元素只能創建兩個角，所以我們還需要兩個偽元素 */
+/* 這裡我們添加一個額外的 div 來創建其他兩個角 */
+.corner-border-box div::before,
+.corner-border-box div::after {
+  content: "";
+  position: absolute;
+  width: 20px; /* 角邊框的寬度 */
+  height: 20px; /* 角邊框的高度 */
+  border: 2px solid white; /* 邊框顏色和粗細 */
+}
+
+/* 左下角 */
+.corner-border-box div::before {
+  bottom: 0;
+  left: 0;
+  border-right: none;
+  border-top: none;
+}
+
+/* 右下角 */
+.corner-border-box div::after {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+}
+
+.box {
+  --b: 0.6vw; /* thickness of the border */
+  --c: white; /* color of the border */
+  --w: 3vw; /* width of border */
+
+  border: var(--b) solid #0000; /* space for the border */
+  --_g: #0000 90deg, var(--c) 0;
+  --_p: var(--w) var(--w) border-box no-repeat;
+  background:
+    conic-gradient(from 90deg at top var(--b) left var(--b), var(--_g)) 0 0 /
+      var(--_p),
+    conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) 100% 0 /
+      var(--_p),
+    conic-gradient(from 0deg at bottom var(--b) left var(--b), var(--_g)) 0 100% /
+      var(--_p),
+    conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--_g))
+      100% 100% / var(--_p);
+
+  /*Irrelevant code*/
+  width: 200px;
+  height: 100px;
+  box-sizing: border-box;
+  margin: 5px;
+  display: inline-flex;
+  font-size: 30px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

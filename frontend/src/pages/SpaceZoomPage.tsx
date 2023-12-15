@@ -2,11 +2,16 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { GetSpacesResponse } from "@lib/shared_types";
+import type { Socket } from "socket.io-client";
+import { io } from "socket.io-client";
 
 import HeaderBar from "@/components/HeaderBar";
 import Square from "@/components/Square";
 import { getSection } from "@/utils/client";
+import { env } from "@/utils/env";
+
 export default function SpaceZoomPage() {
+  const [socket, setSocket] = useState<Socket | null>(null);
   const [spaces, setSpaces] = useState<GetSpacesResponse>([]);
   const remainingSpaces = spaces.filter(
     (space) => space.number <= 20 && !space.occupied,
@@ -25,7 +30,17 @@ export default function SpaceZoomPage() {
 
   useEffect(() => {
     fetchSpace();
-  });
+    const newSocket = io(env.VITE_SOCKET_URL as string);
+    newSocket.on("re-render", () => {
+      console.log("re-render");
+      fetchSpace();
+    });
+
+    setSocket(newSocket);
+    return () => {
+      newSocket.close(); // 斷開連接
+    };
+  }, []);
   return (
     <>
       <HeaderBar />
@@ -39,50 +54,53 @@ export default function SpaceZoomPage() {
         </p>
         <p className="m-5 text-3xl"> 剩餘車位數: {remainingSpaces.length}</p>
       </div>
-    
-      <div className="flex flex-row overflow-auto justify-between border-2 border-white rounded-lg w-auto h-screen m-8 gap-16" >
-    
- {/* 1-10 */}
- <div className="flex-1 flex flex-col content-start">
- {spaces.map((space) => 
-  space.number <= 10 && (
-      <Square
-        key={space.number}
-        floor={space.floor}
-        section={space.section}
-        number={space.number}
-        priority={space.priority} 
-        occupied={space.occupied}
-        license={space.license}
-        arrivalTime={space.arrivalTime}
-        departureTime={space.departureTime}
-        history={space.history}
-      />
-    ),
-  )}
-</div>
 
-{/* 11-20 */}
-<div className="flex-1 flex flex-col content-start">
-  {spaces.map((space) => 
-     space.number > 10 && space.number <= 20 && (
-      <Square
-        key={space.number}
-        floor={space.floor}
-        section={space.section}
-        number={space.number}
-        priority={space.priority} 
-        occupied={space.occupied}
-        license={space.license}
-        arrivalTime={space.arrivalTime}
-        departureTime={space.departureTime}
-        history={space.history}
-      />
-    ),
-  )}
-</div>
-</div>
+      <div className="m-8 flex h-auto w-auto flex-row justify-between gap-16 overflow-auto rounded-lg border-2 border-white">
+        {/* 1-10 */}
+        <div className="flex flex-1 flex-col content-start">
+          {spaces.map(
+            (space) =>
+              space.number <= 10 && (
+                <Square
+                  key={space.number}
+                  floor={space.floor}
+                  section={space.section}
+                  number={space.number}
+                  priority={space.priority}
+                  occupied={space.occupied}
+                  license={space.license}
+                  arrivalTime={space.arrivalTime}
+                  departureTime={space.departureTime}
+                  history={space.history}
+                  socket={socket}
+                />
+              ),
+          )}
+        </div>
 
+        {/* 11-20 */}
+        <div className="flex flex-1 flex-col content-start">
+          {spaces.map(
+            (space) =>
+              space.number > 10 &&
+              space.number <= 20 && (
+                <Square
+                  key={space.number}
+                  floor={space.floor}
+                  section={space.section}
+                  number={space.number}
+                  priority={space.priority}
+                  occupied={space.occupied}
+                  license={space.license}
+                  arrivalTime={space.arrivalTime}
+                  departureTime={space.departureTime}
+                  history={space.history}
+                  socket={socket}
+                />
+              ),
+          )}
+        </div>
+      </div>
     </>
   );
 }
