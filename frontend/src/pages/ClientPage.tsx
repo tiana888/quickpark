@@ -1,5 +1,3 @@
-import React from "react";
-
 import HeaderBar from "@/components/HeaderBar";
 import NewInput from "@/components/NewInput";
 
@@ -7,7 +5,7 @@ export default function ClientPage() {
   const gridItems = Array.from({ length: 6 }, (_, i) => i);
 
   // 可改成其他顏色變換，此為暫時
-  const getColor = (index) => {
+  const getColor = (index:number) => {
     if (index === 4 || index === 5) {
       return "#EA8484";
     }
@@ -17,7 +15,7 @@ export default function ClientPage() {
   const handleViewClick = () => {
     // Handle click on the view area
     // You can add logic to show more information or navigate to another page
-    console.log("View area clicked!");
+    // console.log("View area clicked!");
   };
 
   return (

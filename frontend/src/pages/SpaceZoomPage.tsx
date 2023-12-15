@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { GetSpacesResponse } from "@lib/shared_types";
+import type { GetSpacesResponse } from "@lib/shared_types";
 
 import HeaderBar from "@/components/HeaderBar";
 import Square from "@/components/Square";
@@ -20,9 +20,9 @@ export default function SpaceZoomPage() {
       const spacesData = response.data;
       setSpaces(spacesData);
     } finally {
-      console.log(spaces);
+      // console.log(spaces);
     }
-  }, []);
+  }, [floor,section]);
 
   useEffect(() => {
     fetchSpace();

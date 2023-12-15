@@ -26,7 +26,7 @@ export default function TestPage() {
             occupied: false,
             history: [],
           });
-          console.log(floor[k], abc[j], i);
+          // console.log(floor[k], abc[j], i);
         }
       }
     }
@@ -45,20 +45,23 @@ export default function TestPage() {
     });
   };
   const Get_Space = async () => {
-    const result = await getSpace("B1", "A", 1);
-    console.log(result);
+    await getSpace("B1", "A", 1);
+    // const result = await getSpace("B1", "A", 1);
+    // console.log(result);
   };
   const Get_Space_By_License = async () => {
-    const result = await getSpaceByLicense("test123");
-    console.log(result);
+    await getSpaceByLicense("test123");
+    // const result = await getSpaceByLicense("test123");
+    // console.log(result);
   };
   const Create_Account = async () => {
     const payload: checkAuthPayload = {
       username: "test1",
       password: "12345678",
     };
-    const result = await createAccount(payload);
-    console.log(result);
+    await createAccount(payload);
+    // const result = await createAccount(payload);
+    // console.log(result);
   };
   const Logout = async ()=>{
     await logout();

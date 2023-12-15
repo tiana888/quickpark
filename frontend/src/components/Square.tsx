@@ -1,6 +1,4 @@
-import { useState } from "react";
-
-import { GetSpaceResponse } from "@lib/shared_types";
+import type { GetSpaceResponse } from "@lib/shared_types";
 import { Button } from "@mui/material";
 
 import { updateSpace } from "@/utils/client";
@@ -13,7 +11,6 @@ export default function Square({
   occupied,
   license,
   arrivalTime,
-  departureTime,
   history,
 }: Omit<GetSpaceResponse, "id">) {
   const isNumberOnRight = number <= 10;

@@ -8,7 +8,8 @@ export default {
 };
 
 // material-tailwind config_start
-const withMT = require("@material-tailwind/react/utils/withMT");
+// const withMT = require("@material-tailwind/react/utils/withMT");
+import withMT from "/home/huichu/quickpark/frontend/node_modules/@material-tailwind/react/utils/withMT";
 module.exports = withMT({
   content: [
     "./index.html",
