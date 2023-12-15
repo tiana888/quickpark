@@ -13,10 +13,14 @@ import '../styles.css';
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login,user } = useAuth();
   const [DialogOpen, setDialogOpen] = useState(false);
   const handleOpen = () => {
-    setDialogOpen(true);
+    if (!user){
+      setDialogOpen(true);
+    }else{
+      navigate('/guardpage');
+    }
   };
   const handleClose = () => {
     setDialogOpen(false);
