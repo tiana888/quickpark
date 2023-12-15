@@ -1,22 +1,32 @@
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
 
 export default function ErrorPage() {
   const navigate = useNavigate();
+  const [countdown, setCountdown] = useState(3);
 
   useEffect(() => {
-    // 在 Error 頁面停留 3 秒後再導向首頁
-    const timer = setTimeout(() => {
-      navigate('/');
-    }, 3000);
+    const timer = setInterval(() => {
+      setCountdown((prevCount) => prevCount - 1);
+    }, 1000);
 
-    // 清理計時器以避免內存洩漏
-    return () => clearTimeout(timer);
-  }, [navigate]);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (countdown === 0) {
+      navigate('/');
+    }
+  }, [countdown, navigate]);
 
   return (
-    <div>
-      <p>發生錯誤，請稍後再試。</p>
+    <div className='flex flex-col justify-center items-center h-screen'>
+      <WarningAmberRoundedIcon style={{ fontSize: 100 }}/>
+      <p>此操作需要登入帳號，請先進行登入。</p>
+      <p>頁面將在 {countdown} 秒後導回首頁。</p>
     </div>
   );
 }
