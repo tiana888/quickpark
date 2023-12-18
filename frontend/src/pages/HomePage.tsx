@@ -8,15 +8,20 @@ import Dialog from "@mui/material/Dialog";
 import HomeInput from "@/components/HomeInput";
 import { useAuth } from "@/contexts/AuthContext";
 import Slide from '@mui/material/Slide';
+import type {SlideProps} from '@mui/material/Slide';
 import type { TransitionProps } from '@mui/material/transitions';
 import '../styles.css';
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login,user } = useAuth();
   const [DialogOpen, setDialogOpen] = useState(false);
   const handleOpen = () => {
-    setDialogOpen(true);
+    if (!user){
+      setDialogOpen(true);
+    }else{
+      navigate('/guardpage');
+    }
   };
   const handleClose = () => {
     setDialogOpen(false);
@@ -52,9 +57,7 @@ export default function HomePage() {
   };
 
   const Transition = React.forwardRef(function Transition(
-    props: TransitionProps & {
-      children: React.ReactElement<unknown>;
-    },
+    props: TransitionProps & SlideProps,
     ref: React.Ref<unknown>,
   ) {
     return <Slide direction="left" ref={ref} {...props} timeout={{ enter: 500, exit: 500 }} />;
@@ -97,7 +100,7 @@ export default function HomePage() {
           />
         </div>
       </Link>
-      <Dialog open={DialogOpen} onClose={handleClose} TransitionComponent={Transition}>
+      <Dialog open={DialogOpen} onClose={handleClose} keepMounted aria-describedby="alert-dialog-slide-description" TransitionComponent={Transition}>
         <HomeInput onClick={handleClick} />
       </Dialog>
     </main>
