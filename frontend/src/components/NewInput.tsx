@@ -23,7 +23,7 @@ export default function NewInput({ placeholder, onClick }: NewDialogProps) {
   };
 
   return (
-    <div className="mx-auto flex items-center justify-center rounded-lg bg-white">
+    <div className="mx-auto flex items-center justify-center rounded-2xl bg-white">
       <DialogContent>
         <TextField
           className="w-full p-1 lg:p-2"

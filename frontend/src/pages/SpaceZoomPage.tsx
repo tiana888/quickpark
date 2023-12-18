@@ -1,13 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { GetSpacesResponse } from "@lib/shared_types";
+import type { GetSpacesResponse } from "@lib/shared_types";
+import type { Socket } from "socket.io-client";
+import { io } from "socket.io-client";
 
 import HeaderBar from "@/components/HeaderBar";
 import Square from "@/components/Square";
 import { getSection } from "@/utils/client";
+import { env } from "@/utils/env";
 
 export default function SpaceZoomPage() {
+  const [socket, setSocket] = useState<Socket | null>(null);
   const [spaces, setSpaces] = useState<GetSpacesResponse>([]);
   const remainingSpaces = spaces.filter(
     (space) => space.number <= 20 && !space.occupied,
@@ -19,15 +23,23 @@ export default function SpaceZoomPage() {
       const response = await getSection(floor, section);
       const spacesData = response.data;
       setSpaces(spacesData);
-    } finally {
-      console.log(spaces);
+    } catch (error) {
+      return;
     }
-  }, []);
+  }, [floor, section]);
 
   useEffect(() => {
     fetchSpace();
-  });
+    const newSocket = io(env.VITE_SOCKET_URL as string);
+    newSocket.on("re-render", () => {
+      fetchSpace();
+    });
 
+    setSocket(newSocket);
+    return () => {
+      newSocket.close(); // 斷開連接
+    };
+  }, [fetchSpace]);
   return (
     <>
       <HeaderBar />
@@ -41,24 +53,10 @@ export default function SpaceZoomPage() {
         </p>
         <p className="m-5 text-3xl"> 剩餘車位數: {remainingSpaces.length}</p>
       </div>
-      <div
-        className=" m-8 h-screen w-auto rounded-2xl border-white"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexDirection: "row",
-          borderWidth: "12px",
-        }}
-      >
+
+      <div className="m-8 flex h-auto w-auto flex-row justify-between gap-16 overflow-auto rounded-lg border-2 border-white">
         {/* 1-10 */}
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-          }}
-        >
+        <div className="flex flex-1 flex-col content-start">
           {spaces.map(
             (space) =>
               space.number <= 10 && (
@@ -73,20 +71,14 @@ export default function SpaceZoomPage() {
                   arrivalTime={space.arrivalTime}
                   departureTime={space.departureTime}
                   history={space.history}
+                  socket={socket}
                 />
               ),
           )}
         </div>
 
         {/* 11-20 */}
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-          }}
-        >
+        <div className="flex flex-1 flex-col content-start">
           {spaces.map(
             (space) =>
               space.number > 10 &&
@@ -102,6 +94,7 @@ export default function SpaceZoomPage() {
                   arrivalTime={space.arrivalTime}
                   departureTime={space.departureTime}
                   history={space.history}
+                  socket={socket}
                 />
               ),
           )}

@@ -1,9 +1,24 @@
-import { useState } from "react";
-
-import { GetSpaceResponse } from "@lib/shared_types";
 import { Button } from "@mui/material";
+import type { Socket } from "socket.io-client";
 
 import { updateSpace } from "@/utils/client";
+
+type SquareProps = {
+  floor: string;
+  section: string;
+  number: number;
+  priority: boolean;
+  occupied: boolean;
+  license?: string;
+  arrivalTime?: Date;
+  departureTime?: Date;
+  history: {
+    license: string;
+    arrivalTime: Date;
+    departureTime: Date;
+  }[];
+  socket: Socket | null;
+};
 
 export default function Square({
   floor,
@@ -13,9 +28,9 @@ export default function Square({
   occupied,
   license,
   arrivalTime,
-  departureTime,
   history,
-}: Omit<GetSpaceResponse, "id">) {
+  socket,
+}: SquareProps) {
   const isNumberOnRight = number <= 10;
   const isSingle = number < 10;
 
@@ -54,82 +69,81 @@ export default function Square({
       });
     }
     await updateSpace(floor, section, number, { occupied: !occupied });
+    if (!socket) {
+      alert("No socket! Please retry later.");
+      return;
+    }
+    socket.emit("spaces-updated");
   };
   return (
-    <>
+    <div
+      className="parking-lot"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: isNumberOnRight ? "start" : "end",
+      }}
+    >
       <div
-        style={{
-          flex: 1,
-          display: "flex",
-          position: "relative",
-          alignItems: "center",
-        }}
+        className="relative flex flex-1 content-center"
         onClick={handleClick}
       >
         <Button>
           <div
+            className="box flex"
             style={{
-              width: "150px",
-              height: "75px",
-              border: "2px solid white",
-              display: "flex",
+              width: "20vw",
+              height: "10vw",
+              maxWidth: "200px",
+              maxHeight: "100px",
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-            {priority ? (
+            {priority && (
               <img
-                src="/priority.png"
+                src="/priority1.png"
                 alt="priority parking"
+                className="h-4/12 absolute z-0 w-4/12 object-contain "
                 style={{
-                  width: "80%",
-                  height: "80%",
-                  objectFit: "contain",
-                  position: "absolute",
+                  transform: isNumberOnRight
+                    ? "rotate(90deg)"
+                    : "rotate(270deg)",
                 }}
-                className="z-0"
               />
-            ) : (
-              <div />
             )}
             {occupied ? (
               <img
                 src="/car.png"
                 alt="car"
+                className="absolute h-full w-full object-contain"
                 style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
                   transform: isNumberOnRight
                     ? "rotate(90deg)"
                     : "rotate(270deg)",
                 }}
               />
             ) : (
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-              />
+              <div className="h-full w-full" />
             )}
           </div>
         </Button>
         <span
-          className={`number-label`}
+          className="number-label absolute font-bold text-white"
           style={{
-            marginLeft: "0 !important",
-            color: "white",
-            fontWeight: "bold",
-            fontSize: "30px",
-            position: "absolute",
-            [isNumberOnRight ? "left" : "right"]: "170px",
-            transform: isNumberOnRight ? "rotate(90deg)" : "rotate(270deg)",
+            top: "50%",
+            left: isNumberOnRight ? "calc(100% + 2px)" : undefined,
+            right: isNumberOnRight ? undefined : "calc(100% + 2px)",
+            transform: "translateY(-50%)",
+            zIndex: 10,
+            fontSize: "5vw",
+            maxWidth: "100%",
+            whiteSpace: "nowrap",
           }}
         >
-          {isSingle ? "0" + number : number}
+          {isSingle ? `0${number}` : number}
         </span>
       </div>
-    </>
+    </div>
   );
 }
