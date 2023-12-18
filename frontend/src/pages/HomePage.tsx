@@ -69,9 +69,9 @@ export default function HomePage() {
         className="absolute right-0 top-0 h-20 w-20 lg:right-10 lg:top-10 lg:h-28 lg:w-28"
         onClick={handleOpen}
       >
-        <img src="./home_guard.png" alt="guard" className="flip-left" />
+        <img src="./home_guard.png" alt="guard" className="flip-left" data-testid="guard-logo"/>
       </button>
-      <Link to="/clientpage">
+      <Link to="/clientpage" data-testid="click-start">
         <div className="flex h-screen w-screen flex-col items-center justify-center">
           {/* 在 lg 尺寸下顯示的元素 */}
           <div className="hidden lg:-mb-20 lg:mt-10 lg:block lg:flex lg:flex-row lg:items-center">

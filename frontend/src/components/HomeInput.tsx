@@ -47,7 +47,7 @@ export default function HomeInput({ onClick }: NewDialogProps) {
 
   return (
     <>
-      <DialogTitle className="flex justify-center border-b">
+      <DialogTitle className="flex justify-center border-b" data-testid="dialog-title">
         Identity verification
       </DialogTitle>
       <div className="mx-auto flex items-center justify-center rounded-lg bg-white">
@@ -101,6 +101,7 @@ export default function HomeInput({ onClick }: NewDialogProps) {
               className="h-8 lg:h-10 lg:w-14 lg:w-16"
               src="./enter.png"
               alt="enter"
+              data-testid="submit-button"
             />
           </Button>
         </DialogActions>
