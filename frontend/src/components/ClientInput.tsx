@@ -81,7 +81,6 @@ export default function ClientInput({ placeholder }: NewDialogProps) {
           placeholder={placeholder}
           inputRef={textfieldRef}
           variant="outlined"
-          autoFocus={true}
         />
       </DialogContent>
       <DialogActions>
