@@ -3399,10 +3399,10 @@ typed-array-length@^1.0.4:
     for-each "^0.3.3"
     is-typed-array "^1.1.9"
 
-typescript@^5.0.2:
-  version "5.2.2"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-5.2.2.tgz"
-  integrity sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==
+typescript@^5.4.0-dev.20231218:
+  version "5.4.0-dev.20231218"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.4.0-dev.20231218.tgz#a3d8b835f5765d37832fbcbd350df6bc96d34020"
+  integrity sha512-huxh8lRM0KCQBEOrTZEGb/B/3FE7XQzoGuNnaRG3kpJoj4xZ+TuJNCIJYDSXHvd5754pfOLxz51Jhkvc/ZCr3w==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"
