@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { GetSpacesResponse } from "@lib/shared_types";
+import type { GetSpacesResponse } from "@lib/shared_types";
 import type { Socket } from "socket.io-client";
 import { io } from "socket.io-client";
 
@@ -23,16 +23,15 @@ export default function SpaceZoomPage() {
       const response = await getSection(floor, section);
       const spacesData = response.data;
       setSpaces(spacesData);
-    } finally {
-      console.log(spaces);
+    } catch (error) {
+      return;
     }
-  }, []);
+  }, [floor, section]);
 
   useEffect(() => {
     fetchSpace();
     const newSocket = io(env.VITE_SOCKET_URL as string);
     newSocket.on("re-render", () => {
-      console.log("re-render");
       fetchSpace();
     });
 
@@ -40,7 +39,7 @@ export default function SpaceZoomPage() {
     return () => {
       newSocket.close(); // 斷開連接
     };
-  }, []);
+  }, [fetchSpace]);
   return (
     <>
       <HeaderBar />

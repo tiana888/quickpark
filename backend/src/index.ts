@@ -6,8 +6,7 @@ import http from "http";
 import mongoose from "mongoose";
 import { Server as SocketIOServer } from "socket.io";
 
-import CardRoutes from "./routes/cards";
-import ListRoutes from "./routes/lists";
+import LicenseRoutes from "./routes/licenses";
 import SpaceRoutes from "./routes/spaces";
 import UserRoutes from "./routes/users";
 import { env } from "./utils/env";
@@ -21,8 +20,8 @@ app.use(cors());
 // Routes
 app.use("/api/users", UserRoutes);
 app.use("/api/spaces", SpaceRoutes);
-app.use("/api/cards", CardRoutes);
-app.use("/api/lists", ListRoutes);
+app.use("/api/licenses", LicenseRoutes);
+
 app.get("/heartbeat", (_, res) => res.send({ message: "Hello World!" }));
 
 // Connect to MongoDB

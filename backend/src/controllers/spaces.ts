@@ -11,29 +11,6 @@ import type {
 } from "@lib/shared_types";
 import type { Request, Response } from "express";
 
-// Get spaces by query parameters
-export const getSpacesByQuery = async (req: Request, res: Response) => {
-  try {
-    const { floor, section, number } = req.query;
-    const query: any = {};
-    if (floor) query.floor = floor;
-    if (section) query.section = section;
-    // 斷言 number 是 string 類型後再進行 parseInt
-    if (typeof number === 'string') query.number = parseInt(number, 10);
-
-
-    const spaces = await SpaceModel.find(query);
-    if (spaces.length === 0) {
-      return res.status(404).json({ error: "未存在相符資料" });
-    }
-    res.status(200).json(spaces);
-  } catch (error) {
-    genericErrorHandler(error, res);
-  }
-};
-
-
-///////////////
 // Get all Spaces
 export const getSpaces = async (
   _: Request,
@@ -95,6 +72,38 @@ export const getSection = async (
   }
 };
 
+// Get a floor
+export const getFloor = async (
+  req: Request<{ floor: string }>,
+  res: Response<GetSpacesResponse | { error: string }>,
+) => {
+  try {
+    const { floor } = req.params;
+    const spaces = await SpaceModel.find({ floor: floor });
+    if (!spaces) {
+      return res.status(404).json({ error: "It is not valid" });
+    }
+    const spacesToReturn = spaces.map((space) => {
+      return {
+        id: space.id,
+        floor: space.floor,
+        section: space.section,
+        number: space.number,
+        priority: space.priority,
+        occupied: space.occupied,
+        license: space.license,
+        arrivalTime: space.arrivalTime,
+        departureTime: space.departureTime,
+        history: space.history,
+      };
+    });
+
+    return res.status(200).json(spacesToReturn);
+  } catch (error) {
+    genericErrorHandler(error, res);
+  }
+};
+
 // Get a space
 export const getSpace = async (
   req: Request<{ floor: string; section: string; number: number }>,
@@ -128,33 +137,6 @@ export const getSpace = async (
   }
 };
 
-export const getSpaceByLicense = async (
-  req: Request<{ license: string }>,
-  res: Response<GetSpaceResponse | { error: string }>,
-) => {
-  try {
-    const { license } = req.params;
-    const space = await SpaceModel.findOne({ license: license });
-    if (!space) {
-      return res.status(404).json({ error: "It is not valid" });
-    }
-
-    return res.status(200).json({
-      id: space.id,
-      floor: space.floor,
-      section: space.section,
-      number: space.number,
-      priority: space.priority,
-      occupied: space.occupied,
-      license: space.license,
-      arrivalTime: space.arrivalTime,
-      departureTime: space.departureTime,
-      history: space.history,
-    });
-  } catch (error) {
-    genericErrorHandler(error, res);
-  }
-};
 // Create a space
 export const createSpace = async (
   req: Request<never, never, CreateSpacePayload>,

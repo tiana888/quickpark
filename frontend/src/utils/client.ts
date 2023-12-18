@@ -19,14 +19,19 @@ const client = axios.create({
 export function getSpaces() {
   return client.get<GetSpacesResponse>("/spaces");
 }
-export function getSection(floor: string, section: string) {
-  return client.get<GetSpacesResponse>(`/spaces//${floor}/${section}`);
+export function getFloor(floor: string) {
+  return client.get<GetSpacesResponse>(`/spaces/${floor}`);
 }
+
+export function getSection(floor: string, section: string) {
+  return client.get<GetSpacesResponse>(`/spaces/${floor}/${section}`);
+}
+
 export function getSpace(floor: string, section: string, number: number) {
   return client.get<GetSpaceResponse>(`/spaces/${floor}/${section}/${number}`);
 }
 export function getSpaceByLicense(license: string) {
-  return client.get<GetSpaceResponse>(`/spaces/${license}`);
+  return client.get<GetSpaceResponse>(`/licenses/${license}`);
 }
 
 export function updateSpace(

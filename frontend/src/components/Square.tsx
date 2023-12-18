@@ -1,6 +1,3 @@
-import { useState } from "react";
-
-import { GetSpaceResponse } from "@lib/shared_types";
 import { Button } from "@mui/material";
 import type { Socket } from "socket.io-client";
 
@@ -77,7 +74,6 @@ export default function Square({
       return;
     }
     socket.emit("spaces-updated");
-    console.log("spaces-updated");
   };
   return (
     <div

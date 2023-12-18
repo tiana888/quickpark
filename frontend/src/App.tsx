@@ -1,22 +1,24 @@
-import { AuthProvider } from "./contexts/AuthContext";
+import { Route, Routes } from "react-router-dom";
 
-import { Router, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
 import ClientPage from "./pages/ClientPage";
+import ClientPage2 from "./pages/ClientPage2";
+import ClientPage3 from "./pages/ClientPage3";
+import ClientPageNEW from "./pages/ClientPage_NEW";
+import ErrorPage from "./pages/ErrorPage";
 import GuardPage from "./pages/GuardPage";
 import HistoryPage from "./pages/HistoryPage";
 import HomePage from "./pages/HomePage";
 import SpaceZoomPage from "./pages/SpaceZoomPage";
-import ErrorPage from "./pages/ErrorPage";
 import TestPage from "./pages/TestPage";
-import ClientPage2 from "./pages/ClientPage2";
-import ClientPage3 from "./pages/ClientPage3";
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/clientpage" element={<ClientPage />} />
+        <Route path="/clientpage" element={<ClientPageNEW />} />
+
         <Route
           path="/clientpage/spacezoompage/:floor/:section"
           element={<SpaceZoomPage />}
@@ -25,9 +27,10 @@ function App() {
         <Route path="/guardpage/historypage" element={<HistoryPage />} />
         <Route path="/errorpage" element={<ErrorPage />} />
         <Route path="/testpage" element={<TestPage />} />
-        <Route path="/clientpage/clientpage2" element={<ClientPage2 />} />
-        <Route path="/clientpage/clientpage3" element={<ClientPage3 />} />
-        <Route path="/guardpage/historypage/location" element={<HistoryPage />} />
+        <Route
+          path="/guardpage/historypage/location"
+          element={<HistoryPage />}
+        />
       </Routes>
     </AuthProvider>
   );

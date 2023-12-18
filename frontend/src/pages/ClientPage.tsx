@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import HeaderBar from "@/components/HeaderBar";
@@ -85,7 +85,7 @@ export default function ClientPage() {
     Get_Space();
   }, []); // Empty dependency array ensures it only runs once on mount
 
-  const getColor = (counts) => {
+  const getColor = (counts: number) => {
     if (counts >= 10 && counts <= 15) {
       return "#E8D782"; // Yellow when counts are greater than 0
     }
@@ -96,7 +96,7 @@ export default function ClientPage() {
       return "#EA8484"; // Green when counts are 0
     }
   };
-  const getCountForIndex = (index) => {
+  const getCountForIndex = (index: number) => {
     switch (index) {
       case 0:
         return countsB1A;
