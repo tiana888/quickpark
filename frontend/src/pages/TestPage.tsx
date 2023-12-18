@@ -1,5 +1,6 @@
 import type { checkAuthPayload } from "@lib/shared_types";
 
+import { useAuth } from "@/contexts/AuthContext";
 import {
   createSpace,
   updateSpace,
@@ -7,10 +8,9 @@ import {
   getSpaceByLicense,
   createAccount,
 } from "@/utils/client";
-import { useAuth } from "@/contexts/AuthContext";
 
 export default function TestPage() {
-  const {logout} = useAuth()
+  const { logout } = useAuth();
   const Init_Spaces = async () => {
     const floor = ["B1", "B2", "B3"];
     const abc = ["A", "B", "C", "D", "E", "F"];
@@ -45,22 +45,21 @@ export default function TestPage() {
     });
   };
 
-
   const Reset_Spaces = async () => {
     const abc = ["A", "B", "C", "D", "E", "F"];
     //B1
     for (let j = 0; j < 6; j++) {
       for (let i = 1; i <= 20; i++) {
-        let ABC = abc[j];
-        console.log("B1",ABC,i);
+        const ABC = abc[j];
+        console.log("B1", ABC, i);
         await updateSpace("B1", ABC, i, {
           history: [],
         });
-        console.log("B2",ABC,i);
+        console.log("B2", ABC, i);
         await updateSpace("B2", ABC, i, {
           history: [],
         });
-        console.log("B3",ABC,i);
+        console.log("B3", ABC, i);
         await updateSpace("B3", ABC, i, {
           history: [],
         });
@@ -72,8 +71,8 @@ export default function TestPage() {
     //B1
     for (let j = 0; j < 6; j++) {
       for (let i = 1; i <= 20; i++) {
-        let ABC = abc[j];
-        console.log("B1",ABC,i);
+        const ABC = abc[j];
+        console.log("B1", ABC, i);
         await updateSpace("B1", ABC, i, {
           occupied: true,
           license: "test-113",
@@ -85,7 +84,7 @@ export default function TestPage() {
             },
           ],
         });
-        console.log("B2",ABC,i);
+        console.log("B2", ABC, i);
         await updateSpace("B2", ABC, i, {
           occupied: true,
           license: "test-113",
@@ -97,7 +96,7 @@ export default function TestPage() {
             },
           ],
         });
-        console.log("B3",ABC,i);
+        console.log("B3", ABC, i);
         await updateSpace("B3", ABC, i, {
           occupied: true,
           license: "test-113",
@@ -112,7 +111,6 @@ export default function TestPage() {
       }
     }
   };
-
 
   const Get_Space = async () => {
     const result = await getSpace("B1", "A", 1);
@@ -130,9 +128,9 @@ export default function TestPage() {
     const result = await createAccount(payload);
     console.log(result);
   };
-  const Logout = async ()=>{
+  const Logout = async () => {
     await logout();
-  }
+  };
 
   return (
     <main className="max-w-screen container max-h-screen">
