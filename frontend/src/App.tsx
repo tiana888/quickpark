@@ -1,9 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
 import { AuthProvider } from "./contexts/AuthContext";
-import ClientPage from "./pages/ClientPage";
-import ClientPage2 from "./pages/ClientPage2";
-import ClientPage3 from "./pages/ClientPage3";
 import ClientPageNEW from "./pages/ClientPage_NEW";
 import ErrorPage from "./pages/ErrorPage";
 import GuardPage from "./pages/GuardPage";
